@@ -12,13 +12,13 @@ set(RUST_GOOGLE_LIBYUV_PATH    "${CMAKE_CURRENT_LIST_DIR}/yuv-sys")
 # Fetch submodules via CMake, not .gitmodules
 FetchContent_Declare(
     livekit_protocol 
-    URL https://github.com/livekit/protocol
+    URL https://github.com/livekit/protocol/archive/refs/heads/main.zip
   )
 FetchContent_MakeAvailable(livekit_protocol)
 
 FetchContent_Declare(
     libyuv 
-    URL https://chromium.googlesource.com/libyuv/libyuv
+    URL https://chromium.googlesource.com/libyuv/libyuv/archive/refs/heads/main.zip
   )
 FetchContent_MakeAvailable(libyuv)
 
