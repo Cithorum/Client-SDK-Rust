@@ -18,7 +18,7 @@ FetchContent_MakeAvailable(livekit_protocol)
 
 FetchContent_Declare(
     libyuv 
-    URL https://chromium.googlesource.com/libyuv/libyuv/archive/refs/heads/main.zip
+    URL https://chromium.googlesource.com/libyuv/libyuv/+archive/refs/heads/main.tar.gz
   )
 FetchContent_MakeAvailable(libyuv)
 
