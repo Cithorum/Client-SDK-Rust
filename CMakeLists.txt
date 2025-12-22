@@ -6,8 +6,8 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-set(RUST_LIVEKIT_PROTOCOL_PATH "${CMAKE_CURRENT_LIST_DIR}/livekit-protocol")
-set(RUST_GOOGLE_LIBYUV_PATH    "${CMAKE_CURRENT_LIST_DIR}/yuv-sys")
+set(RUST_LIVEKIT_PROTOCOL_PATH "${CMAKE_CURRENT_LIST_DIR}/livekit-protocol/protocol")
+set(RUST_GOOGLE_LIBYUV_PATH    "${CMAKE_CURRENT_LIST_DIR}/yuv-sys/libyuv")
 
 # Fetch submodules via CMake, not .gitmodules
 FetchContent_Declare(
@@ -23,8 +23,8 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(libyuv)
 
 # Move ${libyuv_SOURCE_DIR} to the expected directory for rust cargo
-file(RENAME ${livekit_protocol_SOURCE_DIR} ${RUST_LIVEKIT_PROTOCOL_PATH})
-file(RENAME ${libyuv_SOURCE_DIR}           ${RUST_GOOGLE_LIBYUV_PATH})
+file(COPY ${livekit_protocol_SOURCE_DIR} ${RUST_LIVEKIT_PROTOCOL_PATH})
+file(COPY ${libyuv_SOURCE_DIR}           ${RUST_GOOGLE_LIBYUV_PATH})
 
 # ---- Build Rust Library ----
 set(RUST_BUILD_GENERATOR "cargo build")
