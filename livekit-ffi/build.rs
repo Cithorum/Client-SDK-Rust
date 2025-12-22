@@ -45,14 +45,18 @@ fn copy_webrtc_license() {
 fn configure_linker() {
     let target_os = env::var("CARGO_CFG_TARGET_OS").unwrap();
     match target_os.as_str() {
-        "windows" => {}
+        "windows" => {
+            println!("cargo:rustc-link-arg=/FORCE:MULTIPLE");
+        }
         "linux" => {
+            println!("cargo:rustc-link-arg=--allow-multiple-definition");
             println!("cargo:rustc-link-lib=static=webrtc");
         }
         "android" => {
             webrtc_sys_build::configure_jni_symbols().unwrap();
         }
         "macos" | "ios" => {
+            println!("cargo:rustc-link-arg=--allow-multiple-definition");
             println!("cargo:rustc-link-arg=-ObjC");
         }
         _ => {

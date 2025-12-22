@@ -1,6 +1,8 @@
 target
 /.idea
 Build/
+livekit-protocol/protocol
+yuv-sys/libyuv
 soxr-sys/test-input.wav
 soxr-sys/test-output.wav
 .DS_Store

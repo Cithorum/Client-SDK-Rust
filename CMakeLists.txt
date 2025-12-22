@@ -24,13 +24,20 @@ FetchContent_Declare(
   )
 FetchContent_MakeAvailable(libyuv)
 
-# Move ${libyuv_SOURCE_DIR} to the expected directory for rust cargo
-file(COPY ${livekit_protocol_SOURCE_DIR} ${RUST_LIVEKIT_PROTOCOL_PATH})
-file(COPY ${libyuv_SOURCE_DIR}           ${RUST_GOOGLE_LIBYUV_PATH})
+include(CopyRecursive.cmake)
+CopyRecursive(${livekit_protocol_SOURCE_DIR} ${RUST_LIVEKIT_PROTOCOL_PATH} "*")
+CopyRecursive(${libyuv_SOURCE_DIR}           ${RUST_GOOGLE_LIBYUV_PATH}    "*")
 
 # ---- Build Rust Library ----
-set(RUST_BUILD_GENERATOR "cargo build")
-set(RUST_OUTPUT_LIBRARY  "${CMAKE_CURRENT_LIST_DIR}/lib")
+if(${CMAKE_BUILD_TYPE} MATCHES "Release")
+    set(RUST_RELEASE_FLAG "--release")
+elseif(${JAM_ENABLE_TRACY})
+    set(RUST_RELEASE_FLAG "")
+endif()
+
+set(RUST_BUILD_GENERATOR "cargo build ${RUST_RELEASE_FLAG}")
+set(RUST_OUTPUT_LIBRARY  "${CMAKE_CURRENT_LIST_DIR}/target")
+
 if(NOT EXISTS ${RUST_OUTPUT_LIBRARY})
     if(CMAKE_SYSTEM_NAME MATCHES "Windows")
         execute_process(
