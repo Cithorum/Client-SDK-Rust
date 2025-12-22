@@ -10,6 +10,8 @@ set(RUST_LIVEKIT_PROTOCOL_PATH "${CMAKE_CURRENT_LIST_DIR}/livekit-protocol/proto
 set(RUST_GOOGLE_LIBYUV_PATH    "${CMAKE_CURRENT_LIST_DIR}/yuv-sys/libyuv")
 
 # Fetch submodules via CMake, not .gitmodules
+include(FetchContent)
+
 FetchContent_Declare(
     livekit_protocol 
     URL https://github.com/livekit/protocol/archive/refs/heads/main.zip
