@@ -14,20 +14,17 @@ FetchContent_Declare(
     livekit_protocol 
     URL https://github.com/livekit/protocol
   )
-  FetchContent_MakeAvailable(livekit_protocol)
-  # Move ${livekit_protocol_SOURCE_DIR} to the expected directory for rust cargo
-  file(RENAME ${livekit_protocol_SOURCE_DIR} ${RUST_LIVEKIT_PROTOCOL_PATH})
-endif()
+FetchContent_MakeAvailable(livekit_protocol)
 
 FetchContent_Declare(
     libyuv 
     URL https://chromium.googlesource.com/libyuv/libyuv
   )
-  FetchContent_MakeAvailable(libyuv)
-  # Move ${libyuv_SOURCE_DIR} to the expected directory for rust cargo
-  file(RENAME ${libyuv_SOURCE_DIR} ${RUST_GOOGLE_LIBYUV_PATH})
-endif()
+FetchContent_MakeAvailable(libyuv)
 
+# Move ${libyuv_SOURCE_DIR} to the expected directory for rust cargo
+file(RENAME ${livekit_protocol_SOURCE_DIR} ${RUST_LIVEKIT_PROTOCOL_PATH})
+file(RENAME ${libyuv_SOURCE_DIR}           ${RUST_GOOGLE_LIBYUV_PATH})
 
 # ---- Build Rust Library ----
 set(RUST_BUILD_GENERATOR "cargo build")
