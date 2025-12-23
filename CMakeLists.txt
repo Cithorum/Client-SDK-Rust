@@ -36,20 +36,17 @@ elseif(${JAM_ENABLE_TRACY})
 endif()
 
 set(RUST_BUILD_GENERATOR "cargo build ${RUST_RELEASE_FLAG}")
-set(RUST_OUTPUT_LIBRARY  "${CMAKE_CURRENT_LIST_DIR}/target")
 
-if(NOT EXISTS ${RUST_OUTPUT_LIBRARY})
-    if(CMAKE_SYSTEM_NAME MATCHES "Windows")
-        execute_process(
-            COMMAND cmd /C ${RUST_BUILD_GENERATOR}
-            WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
-        )
-    else()
-        execute_process(
-            COMMAND bash ${RUST_BUILD_GENERATOR}
-            WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
-        )
-    endif()
+if(CMAKE_SYSTEM_NAME MATCHES "Windows")
+    execute_process(
+        COMMAND cmd /C ${RUST_BUILD_GENERATOR}
+        WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+    )
+else()
+    execute_process(
+        COMMAND bash ${RUST_BUILD_GENERATOR}
+        WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+    )
 endif()
 
 # No C++ code is compiled here, just external invocations to command-line tools are performed
