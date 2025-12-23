@@ -41,11 +41,13 @@ if(CMAKE_SYSTEM_NAME MATCHES "Windows")
     execute_process(
         COMMAND cmd /C ${RUST_BUILD_GENERATOR}
         WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+        COMMAND_ERROR_IS_FATAL ANY
     )
 else()
     execute_process(
         COMMAND bash ${RUST_BUILD_GENERATOR}
         WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+        COMMAND_ERROR_IS_FATAL ANY
     )
 endif()
 
