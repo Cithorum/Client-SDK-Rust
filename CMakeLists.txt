@@ -45,7 +45,7 @@ if(CMAKE_SYSTEM_NAME MATCHES "Windows")
     )
 else()
     execute_process(
-        COMMAND ${RUST_BUILD_GENERATOR}
+        COMMAND cargo build ${RUST_RELEASE_FLAG}
         WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
         COMMAND_ERROR_IS_FATAL ANY
     )
