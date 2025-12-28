@@ -31,15 +31,13 @@ CopyRecursive(${libyuv_SOURCE_DIR}           ${RUST_GOOGLE_LIBYUV_PATH}    "*")
 # ---- Build Rust Library ----
 if(${CMAKE_BUILD_TYPE} MATCHES "Release")
     set(RUST_RELEASE_FLAG "--release")
-elseif(${JAM_ENABLE_TRACY})
+else()
     set(RUST_RELEASE_FLAG "")
 endif()
 
-set(RUST_BUILD_GENERATOR "cargo build ${RUST_RELEASE_FLAG}")
-
 if(CMAKE_SYSTEM_NAME MATCHES "Windows")
     execute_process(
-        COMMAND cmd /C ${RUST_BUILD_GENERATOR}
+        COMMAND cmd /C cargo build ${RUST_RELEASE_FLAG}
         WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
         COMMAND_ERROR_IS_FATAL ANY
     )

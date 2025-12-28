@@ -56,7 +56,6 @@ fn configure_linker() {
             webrtc_sys_build::configure_jni_symbols().unwrap();
         }
         "macos" | "ios" => {
-            println!("cargo:rustc-link-arg=--allow-multiple-definition");
             println!("cargo:rustc-link-arg=-ObjC");
         }
         _ => {

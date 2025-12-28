@@ -105,6 +105,21 @@ fn clone_if_needed(_output_dir: &PathBuf, libyuv_dir: &PathBuf) -> bool {
     true
 }
 
+fn GetPlatformSpecificCompilerFlags() -> &'static str {
+    match std::env::consts::ARCH {
+        "aarch64" => {
+            return "-march=armv9-a+i8mm+sme";
+        }
+        "x86_64" => {
+            return "";
+        }
+        _ => {
+            println!("Running on an unknown or different architecture: {}", std::env::consts::ARCH);
+            std::process::abort();
+        }
+    }
+}
+
 fn main() {
     let output_dir = PathBuf::from(env::var("OUT_DIR").unwrap());
     let libyuv_dir = output_dir.join("libyuv");
@@ -134,8 +149,11 @@ fn main() {
         rename_symbols(&fnc_list, &include_files, &source_files);
     }
 
+    let platform_specific_compiler_flags = GetPlatformSpecificCompilerFlags();
+
     cc::Build::new()
         .warnings(false)
+        .flags([platform_specific_compiler_flags])
         .include(libyuv_dir.join("include"))
         .files(source_files.iter().map(|f| f.path()))
         .compile("yuv");
