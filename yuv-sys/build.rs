@@ -105,7 +105,7 @@ fn clone_if_needed(_output_dir: &PathBuf, libyuv_dir: &PathBuf) -> bool {
     true
 }
 
-fn GetPlatformSpecificCompilerFlags() -> &'static str {
+fn get_platform_specific_compiler_flags() -> &'static str {
     match std::env::consts::ARCH {
         "aarch64" => {
             return "-march=armv9-a+i8mm+sme";
@@ -149,7 +149,7 @@ fn main() {
         rename_symbols(&fnc_list, &include_files, &source_files);
     }
 
-    let platform_specific_compiler_flags = GetPlatformSpecificCompilerFlags();
+    let platform_specific_compiler_flags = get_platform_specific_compiler_flags();
 
     cc::Build::new()
         .warnings(false)
